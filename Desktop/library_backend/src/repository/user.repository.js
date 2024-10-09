@@ -12,7 +12,19 @@ class UserRepository{
             throw new InternalServerError(error);
         }
     }
-    //For Librarian
+    //For Librarian to get single user
+    async getUserById(userId){
+        try {
+            const data=await User.findById(userId);
+            if(!data){
+                throw new NotFound('User', userId);
+            }
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw new InternalServerError(error);
+        }
+    }
     async updateUser(userId,userData){
         try {
             const updatedUser = await User.findByIdAndUpdate(userId, userData, { new: true });
@@ -45,5 +57,9 @@ class UserRepository{
             throw new InternalServerError(error);
         }
     }
+    async reactivateUser(userId) {
+        return await User.findByIdAndUpdate(userId, { isDeleted: false }, { new: true });
+    }
+
 }
 module.exports=new UserRepository();

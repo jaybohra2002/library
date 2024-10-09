@@ -1,4 +1,4 @@
-const BookHistory = require("./book.history");
+const BookHistory = require("./book.history.model");
 const Book = require("./book.model");
 const User = require("./user.model");
 

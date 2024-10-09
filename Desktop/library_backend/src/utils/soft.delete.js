@@ -1,4 +1,5 @@
-const { METHOD_FAILURE } = require('http-status-codes');
+//function for deleting the user
+
 const {User}=require('../models');
 async function softDelete(userId){
     try {
