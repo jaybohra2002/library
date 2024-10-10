@@ -19,6 +19,6 @@ const bookHistrory=new mongoose.Schema({
         default: null
       }
     }, { timestamps: true }
-});
+);
 const BookHistory=new mongoose.model('History',bookHistrory);
 module.exports=BookHistory;

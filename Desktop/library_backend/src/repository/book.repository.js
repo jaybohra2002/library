@@ -56,14 +56,36 @@ class BookRepository{
     // method for checking the status of book
     async findBookByBookId(bookId){
         try {
-            const data=await Book.find({bookId});
+            const data=await Book.findById({bookId});
             return data;
         } catch (error) {
             console.error(error);
             throw new InternalServerError(error);
         }
         
+        
     }
+    //Member
+    async borrowUpdate(bookId){
+        try {
+            const data=await Book.findByIdAndUpdate(bookId,{status:'BORROWED'});
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw InternalServerError(error);
+        }
+    }
+    //Member
+    async returnUpdate(bookId){
+        try {
+            const data=await Book.findByIdAndUpdate(bookId,{status:'AVAILABLE'});
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw InternalServerError(error);
+        }
+    }
+
 
 }
 module.exports=new BookRepository();

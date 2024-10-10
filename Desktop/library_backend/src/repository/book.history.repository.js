@@ -57,5 +57,16 @@ class BookHistoryRepository{
             throw new InternalServerError(error);
         }
     }
+    async findBookHistoryByUserId(userId){
+        try {
+            const data=await BookHistory.find({userId});
+            if(!data){
+                throw new NotFound('User',userId);
+            }
+            return data;
+        } catch (error) {
+            throw new InternalServerError(error);
+        }
+    }
 }
 module.exports=new BookHistoryRepository();
