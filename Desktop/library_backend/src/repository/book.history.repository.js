@@ -1,10 +1,11 @@
 const { InternalServerError, NotFound } = require('../Errors');
-const {BookHistory}=require('../models');
+const {BookHistory,Book,User}=require('../models');
 class BookHistoryRepository{
     async addBookHistory(historyData){
         try {
             const bookHistory=await new BookHistory(historyData);
             await bookHistory.save();
+            console.log(bookHistory+" Add Book History");
             return bookHistory; 
         } catch (error) {
             console.error(error);
@@ -14,12 +15,17 @@ class BookHistoryRepository{
     }
     async updateBookHistory(bookId, historyData){
         try {
-            const history=await BookHistory.find({bookId});
-            if(!history){
-                const bookData=await this.addBookHistory(historyData);
-                return bookData;
-            }
-            const bookHistoryData=await BookHistory.findByIdAndUpdate(bookId,historyData);
+            
+            
+            const isThere=await BookHistory.find({bookId:bookId});
+                if(isThere.length===0){
+                    const bookData=await this.addBookHistory(historyData);
+                    return bookData;
+                }
+                console.log(isThere+" Is there!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            const bookHistoryData=await BookHistory.findByIdAndUpdate(isThere[0]._id,
+                { $set: historyData },
+                { new: true });
             return bookHistoryData;
 
         } catch (error) {

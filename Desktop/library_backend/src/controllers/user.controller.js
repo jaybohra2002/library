@@ -19,7 +19,7 @@ async function getUserById(req,res,next){
     
 }
 //Librarian
-async function getAllUsers(req,res){
+async function getAllUsers(req,res,next){
     try {
         const data=await userService.getAllUsers();
         return res.status(StatusCodes.OK).json({
@@ -37,14 +37,14 @@ async function getAllUsers(req,res){
 async function updateUser(req,res,next){
     try {
         const data=req.body;
-        const userId=req.user.userId;
+        const userId=req.body.userId;
         const updatedUserData=await userService.updateUser(userId,data);
         return res.status(StatusCodes.OK).json({
             success: true,
             message: 'Successfully Updated user',
             error: {},
             data: updatedUserData
-        })
+        });
     } catch (error) {
         next (error);
     }
@@ -55,7 +55,7 @@ async function updateUser(req,res,next){
 
 async function deleteUser(req,res,next){
     try {
-        const userId=req.user.userId;
+        const userId=req.body.userId;
         const data=await userService.deleteUser(userId);
         return res.status(StatusCodes.OK).json({
             success: true,
@@ -75,7 +75,7 @@ async function createUser(req,res,next){
         const data=await userService.createUser(userData);
         return res.status(StatusCodes.CREATED).json({
             success: true,
-            message: 'Successfully Deleted user',
+            message: 'Successfully Created user',
             error: {},
             data: data
         });

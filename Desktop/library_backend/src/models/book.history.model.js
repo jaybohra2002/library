@@ -12,7 +12,7 @@ const bookHistrory=new mongoose.Schema({
       },
       borrowDate: {
         type: Date,
-        required: true
+        
       },
       returnDate: {
         type: Date,

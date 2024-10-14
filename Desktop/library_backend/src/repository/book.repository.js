@@ -34,6 +34,7 @@ class BookRepository{
             if(!book){
                 throw new NotFound('Book',bookId);
             }
+            
             return book;
         } catch (error) {
             console.error(error);
@@ -56,7 +57,8 @@ class BookRepository{
     // method for checking the status of book
     async findBookByBookId(bookId){
         try {
-            const data=await Book.findById({bookId});
+            const data=await Book.findById(bookId);
+            console.log(data);
             return data;
         } catch (error) {
             console.error(error);
@@ -68,7 +70,7 @@ class BookRepository{
     //Member
     async borrowUpdate(bookId){
         try {
-            const data=await Book.findByIdAndUpdate(bookId,{status:'BORROWED'});
+            const data=await Book.findByIdAndUpdate(bookId,{status:'BORROWED'},{new:true});
             return data;
         } catch (error) {
             console.error(error);
@@ -78,7 +80,7 @@ class BookRepository{
     //Member
     async returnUpdate(bookId){
         try {
-            const data=await Book.findByIdAndUpdate(bookId,{status:'AVAILABLE'});
+            const data=await Book.findByIdAndUpdate(bookId,{status:'AVAILABLE'},{new:true});
             return data;
         } catch (error) {
             console.error(error);

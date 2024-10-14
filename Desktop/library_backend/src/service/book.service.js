@@ -22,14 +22,16 @@ class BookService{
 
     async updateBook(bookId, bookData){
         const data = await this.bookRepository.updateBook(bookId, bookData);
+        
         return data;
     }
-    async borrowBook(bookId,userId){
+    async borrowBook(userId,bookId){
         const bookData=await this.bookRepository.findBookByBookId(bookId);
+        console.log(bookData+" ************ ");
         if(!bookData || bookData.status==='BORROWED'){
             throw new BadRequest('Book is already borrowed');
         }
-        await this.bookRepository.borrowUpdate(bookId);
+        const data=await this.bookRepository.borrowUpdate(bookId);
         const borrowData={
             bookId:bookId,
             userId:userId,
@@ -41,16 +43,16 @@ class BookService{
             
         
         
-        return bookData;
+        return data;
 
         
     }
-    async returnBook(bookId,userId){
+    async returnBook(userId,bookId){
         const bookData=await this.bookRepository.findBookByBookId(bookId);
         if(!bookData || bookData.status!=='BORROWED'){
             throw new BadRequest('Book is already returned');
         }
-        await this.bookRepository.borrowUpdate(bookId);
+        const data=await this.bookRepository.returnUpdate(bookId);
         const borrowData={
             bookId:bookId,
             userId:userId,
@@ -62,7 +64,7 @@ class BookService{
             
         
         
-        return bookData;
+        return data;
 
         
     }

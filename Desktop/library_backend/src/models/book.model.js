@@ -14,11 +14,12 @@ const bookSchema=new mongoose.Schema({
         required:true
     },
     status:{
+        type:String,
         enum:['BORROWED','AVAILABLE'],
         default:'AVAILABLE',
         required:true
-    },
-    { timestamps: true }
+    }},
+    { timestamps: true },
 );
-const Book=mongoose.model('Books',bookSchema);
+const Book=mongoose.model('Book',bookSchema);
 module.exports=Book;

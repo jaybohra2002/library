@@ -1,0 +1,11 @@
+const express=require('express');
+const v1Router=express.Router();
+const userRouter=require('./user.route');
+const bookRouter=require('./book.router');
+const historyRouter=require('./book.history.route');
+const authRouter=require('./auth.route');
+v1Router.use('/user',userRouter);
+v1Router.use('/books',bookRouter);
+v1Router.use('/history',historyRouter);
+v1Router.use('/auth',authRouter);
+module.exports=v1Router;

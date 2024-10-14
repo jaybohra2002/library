@@ -1,4 +1,3 @@
-const { deleteUser } = require("../repository/user.repository");
 
 class UserService{
     constructor(userRepository){
@@ -29,6 +28,11 @@ class UserService{
     //Librarian
     async deleteUser(userId){
         const data=await this.userRepository.deleteUser(userId);
+        return data;
+    }
+    //utility 
+    async getUserByEmail(emailId){
+        const data=await this.userRepository.getUserByEmail(emailId);
         return data;
     }
 

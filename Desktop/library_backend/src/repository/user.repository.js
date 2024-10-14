@@ -57,8 +57,18 @@ class UserRepository{
             throw new InternalServerError(error);
         }
     }
-    async reactivateUser(userId) {
-        return await User.findByIdAndUpdate(userId, { isDeleted: false }, { new: true });
+    async reactivateUser(userId,userData) {
+
+        return await User.findByIdAndUpdate(userId, userData, { new: true });
+    }
+    async getUserByEmail(email){
+        try {
+            const user=await User.findOne({email});
+        
+            return user;
+        } catch (error) {
+            throw new InternalServerError(error);
+        }
     }
 
 }

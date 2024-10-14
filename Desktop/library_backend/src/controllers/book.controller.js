@@ -20,7 +20,8 @@ async function getAllBooks(req,res,next){
 async function addBook(req,res,next){
     try {
         const bookData=req.body;
-        const data=await bookService(bookData);
+        console.log(bookData);
+        const data=await bookService.addBook(bookData);
         return res.status(StatusCodes.CREATED).json({
             success: true,
             message: 'Successfully Added book',
@@ -37,7 +38,7 @@ async function addBook(req,res,next){
 async function deleteBook(req,res,next){
     try {
         const bookId=req.params.bookId;
-        const data=await bookService(bookId);
+        const data=await bookService.deleteBook(bookId);
         return res.status(StatusCodes.OK).json({
             success: true,
             message: 'Successfully Deleted book',
@@ -55,7 +56,8 @@ async function updateBook(req,res,next){
     try {
         const bookId=req.params.bookId;
         const bookData=req.body;
-        const data=bookService.updateBook(bookId,bookData);
+        const data=await bookService.updateBook(bookId,bookData);
+        
         return res.status(StatusCodes.OK).json({
             success: true,
             message: 'Successfully Updated book',
@@ -72,6 +74,7 @@ async function borrowBook(req,res,next){
     try {
         const userId=req.user.userId;
         const bookId=req.params.bookId;
+        console.log(bookId);
         const data=await bookService.borrowBook(userId,bookId);
         return res.status(StatusCodes.OK).json({
             success: true,
